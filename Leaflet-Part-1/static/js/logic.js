@@ -1,4 +1,4 @@
-//url to geoJSON of earthquake data  
+//url to geoJSON of last 7 days of all earthquake data  
 let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
   
 //Followed format of example given in class for this function
@@ -6,27 +6,55 @@ let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.ge
 function createFeatures(earthquakeData) {
 
     //depth color function
+    function circleColor(depth) {
+        if (depth < 5) {
+            return '#FFFF00';
+        } else if (depth < 15) {
+            return'#ffd700';
+        } else if (depth < 35) {
+            return'#ff8c00';
+        }else if (depth < 55) {
+            return'#FF0000';
+        }else if (depth < 75) {
+            return'#a52a2a';
+        }else if (depth < 100) {
+            return'#FF00FF';
+        } else if (depth < 125) {
+            return'#800080';
+        } else {
+            return '#483d8b';
+        }
+    };
 
-    //size magnitude function
-    
-    //give each earthquake a circle marker that changes based on the depth and magnitude of the quake
+    //size of magnitude function
+    function circleSize(mag) {
+        return mag * 50000;
+    };
+
+    //give each feature a circle dependent on depth and magnitude and a popup that describes the place, time, and magnitude of the earthquake
     function onEachFeature(feature, layer) {
-        let lat = feature.geometry.coordinates[1]
-        let long = feature.geometry.coordinates[0]
-        L.circleMarker([lat,long], {
+       layer.bindPopup(`<h3>Place: ${feature.properties.place}</h3><hr><h3>Magnitude: ${feature.properties.mag}</h3><hr><p>Date: ${new Date(feature.properties.time)}</p>`);
+    }
+    
+    //make pointToLayer function for circle markers
+    function pointToLayer(feature) {
+        
+        return L.circle([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
             stroke: false,
+            interactive: true,
             fillOpacity: 0.8,
-            fillColor: depth(feature.geometry.coordinates[3]),
-            radius: magnitude(feature.properties.mag)
-        })
-        //give each feature a popup that describes the place, time, and magnitude of the earthquake
-        layer.bindPopup(`<h3>Place: ${feature.properties.place}</h3><hr><h3>Magnitude: ${feature.properties.mag}</h3><hr><p>Date: ${new Date(feature.properties.time)}</p>`);
+            fillColor: circleColor(feature.geometry.coordinates[3]),
+            radius: circleSize(feature.properties.mag)
+        });
     }
 
     //create a geoJSON layer that contains the features array on the earthquakeData object
     //run the onEachFeature function once for each object in the array
+    //give each earthquake a circle marker that changes based on the depth and magnitude of the quake
     let earthquakes = L.geoJSON(earthquakeData, {
+        pointToLayer: pointToLayer,
         onEachFeature: onEachFeature
+        
     });
 
     //send earthquakes layer to the createMap function
@@ -58,21 +86,6 @@ d3.json(url).then(function(response) {
     
     //send response to the createFeatures function
     createFeatures(features);
-
-
-    //build an array for the location of each earthquake
-    let quakeArray = [];
-  
-    for (let i = 0; i < features.length; i++) {
-      let location = features[i].geometry;
-      if (location) {
-        //console.log(location);
-        quakeArray.push([location.coordinates[1], location.coordinates[0]]);
-      }
-  
-    }
-  
-
   
   });
 
