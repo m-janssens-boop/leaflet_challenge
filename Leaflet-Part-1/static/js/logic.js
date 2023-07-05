@@ -10,7 +10,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   
 let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
   
-
+//Followed format of example given in class for this function
 //create the createFeatures function to log specific features from each earthquake in the dataset
 function createFeatures(earthquakeData) {
     //give each feature a popup that describes the place, time, and magnitude of the earthquake
