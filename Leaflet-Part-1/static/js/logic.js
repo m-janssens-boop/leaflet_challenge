@@ -4,23 +4,19 @@ let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.ge
 //Followed format of example given in class for this function
 //create the createFeatures function to log specific features from each earthquake in the dataset
 function createFeatures(earthquakeData) {
-
+//CHANGE COLORS TO MATCH LEGEND ON CANVAS AND FIGURE OUT HOW TO GET THEM TO SHOW UP CORRECTLY. ADD LEGEND INTO MAP
     //depth color function
     function circleColor(depth) {
-        if (depth < 5) {
+        if (depth < 10) {
             return '#FFFF00';
-        } else if (depth < 15) {
+        } else if (depth < 30) {
             return'#ffd700';
-        } else if (depth < 35) {
+        } else if (depth < 50) {
             return'#ff8c00';
-        }else if (depth < 55) {
+        }else if (depth < 70) {
             return'#FF0000';
-        }else if (depth < 75) {
+        }else if (depth < 90) {
             return'#a52a2a';
-        }else if (depth < 100) {
-            return'#FF00FF';
-        } else if (depth < 125) {
-            return'#800080';
         } else {
             return '#483d8b';
         }
@@ -28,7 +24,7 @@ function createFeatures(earthquakeData) {
 
     //size of magnitude function
     function circleSize(mag) {
-        return mag * 50000;
+        return mag * 20000;
     };
 
     //give each feature a circle dependent on depth and magnitude and a popup that describes the place, time, and magnitude of the earthquake
