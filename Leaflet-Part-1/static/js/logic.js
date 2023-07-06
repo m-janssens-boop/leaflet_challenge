@@ -80,6 +80,7 @@ function createMap(earthquakes) {
     });
 
     //Make the legend
+    //Ask BCS helped with the formatting of the legend
     let legend = L.control({position: "bottomright"});
         legend.onAdd = function() {
             let div = L.DomUtil.create("div", "info legend");
@@ -91,22 +92,20 @@ function createMap(earthquakes) {
                 "#ee9c00",
                 "#ea822c",
                 "#ea2c2c"];
-            let labels = [];
 
             //add the min and max
-            let legendInfo = "<h1>Depth of Earthquake (km)</h1>" + 
-            "<div> class =\"labels\">" + 
-            "<div> class =\"min\">" + limits[0] + "</div>" +
-            "<div> class =\"max\">" + limits[limits.length - 1] + "</div>" +
+            let legendInfo = "<h1>Depth of<br />Earthquake<br />(km)</h1>" + 
             "</div>";
 
             div.innerHTML = legendInfo;
 
-            limits.forEach(function(limit, index) {
-                labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-              });
-          
-              div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+            for (let i = 0; i < limits.length; i++) {
+                div.innerHTML += "<i style='background: "
+                  + colors[i]
+                  + "'></i> "
+                  + limits[i]
+                  + (limits[i + 1] ? "&ndash;" + limits[i + 1] + "<br>" : "+");
+              }
               return div;
             };
           
