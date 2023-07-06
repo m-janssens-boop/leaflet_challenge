@@ -83,8 +83,14 @@ function createMap(earthquakes) {
     let legend = L.control({position: "bottomright"});
         legend.onAdd = function() {
             let div = L.DomUtil.create("div", "info legend");
-            let limits = earthquakes.options.limits;
-            let colors = earthquakes.options.colors;
+            let limits = [-10, 10, 30, 50, 70, 90];
+            let colors = [
+                "#98ee00",
+                "#d4ee00",
+                "#eecc00",
+                "#ee9c00",
+                "#ea822c",
+                "#ea2c2c"];
             let labels = [];
 
             //add the min and max
