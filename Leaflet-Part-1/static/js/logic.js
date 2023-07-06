@@ -59,12 +59,13 @@ function createFeatures(earthquakeData) {
         
     });
 
+
     //send earthquakes layer to the createMap function
     createMap(earthquakes);
 
 }
 
-//createMap function constructs the map from given tile layers
+//createMap function constructs the map from given tile layers and adds legend
 function createMap(earthquakes) {
 
 // create base layer
@@ -77,6 +78,32 @@ function createMap(earthquakes) {
     zoom: 5,
     layers: [base, earthquakes]
     });
+
+    //Make the legend
+    let legend = L.control({position: "bottomright"});
+        legend.onAdd = function() {
+            let div = L.DomUtil.create("div", "info legend");
+            let limits = [-10,91]
+
+            //add the min and max
+            let legendInfo = "<h1>Depth of Earthquake (km)</h1>" + 
+            "<div> class =\"labels\">" + 
+            "<div> class =\"min\">" + limits[0] + "</div>" +
+            "<div> class =\"max\">" + limits[limits.length - 1] + "</div>" +
+            "</div>";
+
+            div.innerHTML = legendInfo;
+
+            limits.forEach(function(limit, index) {
+                labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
+              });
+          
+              div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+              return div;
+            };
+          
+    // Adding the legend to the map
+    legend.addTo(myMap);      
 
 }
 
