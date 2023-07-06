@@ -83,7 +83,9 @@ function createMap(earthquakes) {
     let legend = L.control({position: "bottomright"});
         legend.onAdd = function() {
             let div = L.DomUtil.create("div", "info legend");
-            let limits = [-10,91]
+            let limits = earthquakes.options.limits;
+            let colors = earthquakes.options.colors;
+            let labels = [];
 
             //add the min and max
             let legendInfo = "<h1>Depth of Earthquake (km)</h1>" + 
@@ -103,7 +105,8 @@ function createMap(earthquakes) {
             };
           
     // Adding the legend to the map
-    legend.addTo(myMap);      
+    legend.addTo(myMap);  
+    
 
 }
 
@@ -117,6 +120,3 @@ d3.json(url).then(function(response) {
     createFeatures(features);
   
   });
-
-
-  
