@@ -8,40 +8,46 @@ function createFeatures(earthquakeData) {
     //depth color function
     function circleColor(depth) {
         if (depth < 10) {
-            return '#FFFF00';
+            return '#00FF00';
         } else if (depth < 30) {
-            return'#ffd700';
+            return'#ADFF2F';
         } else if (depth < 50) {
-            return'#ff8c00';
+            return'#FFD700';
         }else if (depth < 70) {
-            return'#FF0000';
+            return'#FFA500';
         }else if (depth < 90) {
-            return'#a52a2a';
+            return'#FF8C00';
         } else {
-            return '#483d8b';
+            return '#FF4500';
         }
+    
     };
 
     //size of magnitude function
     function circleSize(mag) {
-        return mag * 20000;
+        return mag * 4;
     };
 
     //give each feature a circle dependent on depth and magnitude and a popup that describes the place, time, and magnitude of the earthquake
     function onEachFeature(feature, layer) {
        layer.bindPopup(`<h3>Place: ${feature.properties.place}</h3><hr><h3>Magnitude: ${feature.properties.mag}</h3><hr><p>Date: ${new Date(feature.properties.time)}</p>`);
     }
+
+    function style(feature) {
+        return {
+        stroke: true,
+        interactive: true,
+        fillOpacity: 0.8,
+        fillColor: circleColor(feature.geometry.coordinates[2]),
+        radius: circleSize(feature.properties.mag),
+        weight: 1
+        };
+    };
     
     //make pointToLayer function for circle markers
     function pointToLayer(feature) {
         
-        return L.circle([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
-            stroke: false,
-            interactive: true,
-            fillOpacity: 0.8,
-            fillColor: circleColor(feature.geometry.coordinates[3]),
-            radius: circleSize(feature.properties.mag)
-        });
+        return L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], style(feature));
     }
 
     //create a geoJSON layer that contains the features array on the earthquakeData object
