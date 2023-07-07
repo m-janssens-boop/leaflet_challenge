@@ -2,7 +2,6 @@
 
 Background
 ---------------
----------------
 The United States Geological Survey (USGS), is responsible for providing scientific data about natural hazards, the health of our ecosystems and environment, and the impacts of climate and land-use change. They manage large datasets and need ways to visualize them that are easily understood and accessible to the general public.
 
 Build a new set of tools that will allow the USGS to visualize their earthquake data. 
