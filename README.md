@@ -17,4 +17,5 @@ Retrieve the data for all earthquakes for the last 7 days from [The USGS geoJSON
 - Popups that provide additional information about the earthquake when its associated marker is clicked.
 - A legend that provides context for the map data.
 
-<img width="1141" alt="Screenshot 2023-07-06 at 2 40 51 PM" src="https://github.com/m-janssens-boop/leaflet_challenge/assets/127706155/e1e36d6e-8bff-402a-af2d-3880db67e5a2">
+<img width="1116" alt="Screenshot 2023-07-06 at 5 24 55 PM" src="https://github.com/m-janssens-boop/leaflet_challenge/assets/127706155/61b94c1e-6bc7-47d5-a506-91e493161ae0">
+
